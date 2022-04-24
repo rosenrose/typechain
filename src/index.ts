@@ -3,7 +3,7 @@ function hi() {
   return "hello";
 }
 
-class Block {
+class Hello {
   constructor(private data: string) {}
   static hi() {
     return "hi";
