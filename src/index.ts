@@ -15,6 +15,9 @@ const b = [...a, 4 ** 5];
 const c = 1_000_000;
 
 import { init, exit } from "myPackage"; // from package
-// import { init, exit } from "./myPackage";  // from file
 init({ url: "" });
 exit(1);
+
+import { init2, exit2 } from "./myPackage2"; // from file
+init2({ url: "" });
+exit2(1);
