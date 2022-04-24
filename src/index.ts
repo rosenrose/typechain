@@ -44,6 +44,40 @@ class Block implements BlockShape {
 
   static calculateHash(prevHash: string, height: number, data: string): string {
     const toBeHashed = [prevHash, height, data].join("");
-    return "";
+    return crypto.createHash("sha256").update(toBeHashed).digest("hex");
   }
 }
+
+class BlockChain {
+  private blocks: Block[];
+
+  constructor() {
+    this.blocks = [];
+  }
+
+  private getPrevHash(): string {
+    if (this.blocks.length) {
+      return this.blocks.at(-1)!.hash;
+    } else {
+      return "";
+    }
+  }
+  public addBlock(data: string) {
+    const block = new Block(this.getPrevHash(), this.blocks.length + 1, data);
+    this.blocks.push(block);
+  }
+  public getBlocks() {
+    return [...this.blocks];
+  }
+}
+
+const blockchain = new BlockChain();
+
+blockchain.addBlock("first");
+blockchain.addBlock("second");
+blockchain.addBlock("3");
+
+blockchain.getBlocks().push(new Block("xxxx", 1234, "hackedddd"));
+blockchain.addBlock("4");
+
+console.log(blockchain.getBlocks());
